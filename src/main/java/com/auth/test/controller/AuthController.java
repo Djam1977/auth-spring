@@ -51,12 +51,14 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
-
+//Methode d'authentification qui requier un coprs de type login( obje clé valeur username password)
+    //Si username exist verifie le password avec l'encoder
+    //la class SecurityContextHoldercréé une nvvle authentification et si pas d'erreur genere un Token
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequestBody) {
 
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(loginRequestBody.getUsername(), loginRequestBody.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
@@ -72,29 +74,33 @@ public class AuthController {
                 userDetails.getEmail(),
                 roles));
     }
-
+// Methode pour enregistrer un utilisateur, accessible de l'exterieur de la class authentificateur, elle renvoie une reponse entity(typage)
+    //la methode registrerUser attend obligatoirement un objet dans on corps de type signUpRequestBody
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequestBody) {
+        //Si le username existe déja je renvoie une erreur avec un message
+        if (userRepository.existsByUsername(signUpRequestBody.getUsername())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
-
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+//Si l'Email existe déja je renvoie une erreur avec un message
+        if (userRepository.existsByEmail(signUpRequestBody.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
 
         // Create new user's account
-        User user = new User(signUpRequest.getUsername(),
-                signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()));
+        User newUser = new User(signUpRequestBody.getUsername(),
+                signUpRequestBody.getEmail(),
+                encoder.encode(signUpRequestBody.getPassword()));
 
-        Set<String> strRoles = signUpRequest.getRoles();
+        Set<String> strRoles = signUpRequestBody.getRoles();
         Set<Role> roles = new HashSet<>();
-
+// Si il y'a ROLE_USER dans mon dépot roleRepository je l'assigne à une variable Role userRole
+        // En cas d'erreur(orElseThrow(()) je créé une erreur
+        //Sinon je l'ajoute dans mon nouveau []
         if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -118,8 +124,8 @@ public class AuthController {
             });
         }
 
-        user.setRoles(roles);
-        userRepository.save(user);
+        newUser.setRoles(roles);
+        userRepository.save(newUser);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
