@@ -1,8 +1,7 @@
 package com.auth.test.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,19 +17,20 @@ public class Flat {
     @Size(max = 255)
     private String titre;
 
-    @NotBlank
-    @Size(max = 255)
+    @NotNull
+    @DecimalMin("0.0")
+    @DecimalMax("999.99")
     private Float price;
 
 
-//    @ManyToMany
-//    @JoinTable(name = "ingredient_flat",
-//            joinColumns = @JoinColumn(name = "ingredient_id"),
-//            inverseJoinColumns = @JoinColumn(name = "flat_id"))
-
-
-//    private List<Ingredient> ingredients = new ArrayList<>();
-
+    @ManyToMany
+    @JoinTable(name = "ingredient_flat",
+            joinColumns = @JoinColumn(name = "ingredient_id"),
+            inverseJoinColumns = @JoinColumn(name = "flat_id"))
+    private List<Ingredient> ingredients = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private Type type;
 
 
     public Flat() {
@@ -81,5 +81,13 @@ public class Flat {
 
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 }

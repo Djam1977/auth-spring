@@ -25,8 +25,8 @@ public class Ingredient {
     private String description;
 
 
-//    @ManyToMany(mappedBy = "ingredients")
-//    private List<Flat> flat = new ArrayList<>();
+    @ManyToMany(mappedBy = "ingredients")
+    private List<Flat> flat = new ArrayList<>();
     public Ingredient() {
     }
 

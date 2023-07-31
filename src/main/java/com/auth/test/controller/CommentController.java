@@ -18,12 +18,21 @@ public class CommentController {
 
     @Autowired
     CommentRepository commentRepository;
+
     @GetMapping("")
 
-    public List<Comment> getComments() { return commentRepository. findAll();
+    public List<Comment> getComments() {
+        return commentRepository.findAll();
     }
+
+    @GetMapping("/{id}")
+//    @PreAuthorize("hasRole('ADMIN')")
+    public Comment getCommentById(@PathVariable Long id) {
+        return commentRepository.findById(id).get();
+    }
+
     @PostMapping("")
-    public ResponseEntity<?> postComment(@RequestBody Comment commentBody){
+    public ResponseEntity<?> postComment(@RequestBody Comment commentBody) {
         Comment newComment = new Comment(commentBody.getFirstname(),
                 commentBody.getLastname(),
                 commentBody.getEmail(),
@@ -33,24 +42,24 @@ public class CommentController {
         commentRepository.save(newComment);
         return ResponseEntity.ok(new MessageResponse("Commentaire bien enregistré!"));
     }
+
     @PutMapping("/{id}")
 //    @PreAuthorize("hasRole('ADMIN')")
-   public  ResponseEntity<?> updateComment(@PathVariable Long id, @RequestBody Comment commentBody){
+    public ResponseEntity<?> updateComment(@PathVariable Long id, @RequestBody Comment commentBody) {
         Comment commentToUpdate = commentRepository.findById(id).get();
-        commentToUpdate.setVerifiedByAdmin(true);
+        commentToUpdate.setVerifiedByAdmin(!commentBody.getVerifiedByAdmin());
         commentRepository.save(commentToUpdate);
         return ResponseEntity.ok(new MessageResponse("Commentaire bien validé!"));
-        }
 
-
+    }
 
 
     @DeleteMapping("/{id}")
-   //@PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteComment(@PathVariable Long id) {
         Comment commentToDelete = commentRepository.findById(id).get();
         commentRepository.deleteById(commentToDelete.getId());
         return ResponseEntity.ok(new MessageResponse("Commentaire bien supprimé!"));
-}
     }
+}
 
