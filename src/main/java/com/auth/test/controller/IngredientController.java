@@ -1,11 +1,8 @@
 package com.auth.test.controller;
 
-import com.auth.test.entity.Flat;
 import com.auth.test.entity.Ingredient;
-import com.auth.test.payload.response.MessageResponse;
 import com.auth.test.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -34,4 +31,16 @@ public class IngredientController {
         }
         return list;
     }
+//    @PostMapping("")
+//    public List<Ingredient> postIngredients(@RequestBody List<Ingredient> ingredientsBody) {
+//        List<Ingredient> list = new ArrayList<>();
+//        for (Ingredient ingredient : ingredientsBody) {
+//            Ingredient ingredientToSave = new Ingredient();
+//            ingredientToSave.setName(ingredient.getName());
+//            ingredientToSave.setNameEn(ingredient.getNameEn());
+//            list.add(ingredientToSave);
+//            ingredientRepository.save(ingredient);
+//        }
+//        return list;
+//    }
 }

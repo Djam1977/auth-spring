@@ -2,8 +2,6 @@ package com.auth.test.controller;
 
 
 import com.auth.test.entity.Flat;
-import com.auth.test.entity.FlatWithIngredientWrapper;
-import com.auth.test.entity.Ingredient;
 import com.auth.test.payload.response.MessageResponse;
 import com.auth.test.repository.FlatRepository;
 import com.auth.test.repository.IngredientRepository;
@@ -37,28 +35,28 @@ public class FlatController {
 
     }
 
-//    @PostMapping("")
-//    public Flat postFlat(@RequestBody Flat flatBody) {
-//
-//
-//        return flatRepository.save(flatBody);
-//    }
-
     @PostMapping("")
-    public ResponseEntity<?> postFlatWithIngredient(@RequestBody FlatWithIngredientWrapper wrapper) {
-        Ingredient ingredient = ingredientRepository.findById(wrapper.getIngredient().getId()).orElse(null);
-        Flat flat = flatRepository.findById(wrapper.getFlat().getId()).orElse(null);
-        if (ingredient != null && flat != null) {
+    public Flat postFlat(@RequestBody Flat flatBody) {
 
-            flat.getIngredients().add(ingredient);
-            ingredient.getFlat().add(flat);
 
-            flatRepository.save(flat);
-            ingredientRepository.save(ingredient);
-
-        }
-        return ResponseEntity.ok(new MessageResponse("VIVE LA VIE"));
+        return flatRepository.save(flatBody);
     }
+
+//    @PostMapping("")
+//    public ResponseEntity<?> postFlatWithIngredient(@RequestBody FlatWithIngredientWrapper wrapper) {
+//        Ingredient ingredient = ingredientRepository.findById(wrapper.getIngredient().getId()).orElse(null);
+//        Flat flat = flatRepository.findById(wrapper.getFlat().getId()).orElse(null);
+//        if (ingredient != null && flat != null) {
+//
+//            flat.getIngredients().add(ingredient);
+//            ingredient.getFlat().add(flat);
+//
+//            flatRepository.save(flat);
+//            ingredientRepository.save(ingredient);
+//
+//        }
+//        return ResponseEntity.ok(new MessageResponse("VIVE LA VIE"));
+//    }
 
 
     @PutMapping("/{id}")

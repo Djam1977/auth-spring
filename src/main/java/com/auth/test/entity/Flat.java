@@ -1,5 +1,6 @@
 package com.auth.test.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -24,6 +25,7 @@ public class Flat {
 
 
     @ManyToMany
+    @JsonSerialize(using = IngredientSerializer.class)
     @JoinTable(name = "ingredient_flat",
             joinColumns = @JoinColumn(name = "flat_id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id"))

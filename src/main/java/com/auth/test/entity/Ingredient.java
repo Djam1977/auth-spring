@@ -1,5 +1,6 @@
 package com.auth.test.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -22,6 +23,7 @@ public class Ingredient {
     private String nameEn;
 
     @ManyToMany(mappedBy = "ingredients")
+    @JsonSerialize(using = FlatSerializer.class)
     private List<Flat> flat = new ArrayList<>();
 
     public Ingredient() {
