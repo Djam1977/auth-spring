@@ -2,8 +2,11 @@ package com.auth.test.controller;
 
 
 import com.auth.test.entity.Flat;
+import com.auth.test.entity.FlatWithIngredientWrapper;
+import com.auth.test.entity.Ingredient;
 import com.auth.test.payload.response.MessageResponse;
 import com.auth.test.repository.FlatRepository;
+import com.auth.test.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,9 @@ public class FlatController {
 
     @Autowired
     FlatRepository flatRepository;
+    @Autowired
+    IngredientRepository ingredientRepository;
+
 
     @GetMapping("")
     public List<Flat> getFlat() {
@@ -31,17 +37,29 @@ public class FlatController {
 
     }
 
+//    @PostMapping("")
+//    public Flat postFlat(@RequestBody Flat flatBody) {
+//
+//
+//        return flatRepository.save(flatBody);
+//    }
+
     @PostMapping("")
-    public ResponseEntity<?> postFlat(@RequestBody Flat flatBody) {
-        Flat newFlat = new Flat(
-                flatBody.getId(),
-                flatBody.getImage(),
-                flatBody.getTitre(),
-                flatBody.getPrice()
-        );
-        flatRepository.save(newFlat);
-        return ResponseEntity.ok(new MessageResponse("Plat bien enregistré!"));
+    public ResponseEntity<?> postFlatWithIngredient(@RequestBody FlatWithIngredientWrapper wrapper) {
+        Ingredient ingredient = ingredientRepository.findById(wrapper.getIngredient().getId()).orElse(null);
+        Flat flat = flatRepository.findById(wrapper.getFlat().getId()).orElse(null);
+        if (ingredient != null && flat != null) {
+
+            flat.getIngredients().add(ingredient);
+            ingredient.getFlat().add(flat);
+
+            flatRepository.save(flat);
+            ingredientRepository.save(ingredient);
+
+        }
+        return ResponseEntity.ok(new MessageResponse("VIVE LA VIE"));
     }
+
 
     @PutMapping("/{id}")
 //    @PreAuthorize("hasRole('ADMIN')")

@@ -15,27 +15,25 @@ public class Ingredient {
     private Long id;
     @NotBlank
     @Size(max = 255)
-    private String strIngredientFr;
+    private String name;
+
     @NotBlank
     @Size(max = 255)
-    private String strIngredientEn;
-
-    @NotBlank
-    @Size(max = 1000)
-    private String description;
-
+    private String nameEn;
 
     @ManyToMany(mappedBy = "ingredients")
     private List<Flat> flat = new ArrayList<>();
+
     public Ingredient() {
     }
+//
+//    public Ingredient(Long id, String name, String nameEn) {
+//        this.id = id;
+//        this.name = name;
+//        this.nameEn = nameEn;
+//
+//    }
 
-    public Ingredient(Long id, String strIngredientFr, String strIngredientEn, String description) {
-        this.id = id;
-        this.strIngredientFr = strIngredientFr;
-        this.strIngredientEn = strIngredientEn;
-        this.description = description;
-    }
 
     public Long getId() {
         return id;
@@ -45,28 +43,12 @@ public class Ingredient {
         this.id = id;
     }
 
-    public String getStrIngredientFr() {
-        return strIngredientFr;
+    public String getName() {
+        return name;
     }
 
-    public void setStrIngredientFr(String strIngredientFr) {
-        this.strIngredientFr = strIngredientFr;
-    }
-
-    public String getStrIngredientEn() {
-        return strIngredientEn;
-    }
-
-    public void setStrIngredientEn(String strIngredientEn) {
-        this.strIngredientEn = strIngredientEn;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Flat> getFlat() {
@@ -75,6 +57,14 @@ public class Ingredient {
 
     public void setFlat(List<Flat> flat) {
         this.flat = flat;
+    }
+
+    public String getNameEn() {
+        return nameEn;
+    }
+
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
     }
 }
 

@@ -25,8 +25,8 @@ public class Flat {
 
     @ManyToMany
     @JoinTable(name = "ingredient_flat",
-            joinColumns = @JoinColumn(name = "ingredient_id"),
-            inverseJoinColumns = @JoinColumn(name = "flat_id"))
+            joinColumns = @JoinColumn(name = "flat_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
     private List<Ingredient> ingredients = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "type_id")
