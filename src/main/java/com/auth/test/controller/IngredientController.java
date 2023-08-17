@@ -3,9 +3,11 @@ package com.auth.test.controller;
 import com.auth.test.entity.Ingredient;
 import com.auth.test.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -17,29 +19,17 @@ public class IngredientController {
     IngredientRepository ingredientRepository;
 
     @GetMapping("")
-    public List<Ingredient> getIngredient() {
+    public List<Ingredient> getIngredients() {
         return ingredientRepository.findAll();
     }
 
 
-    @PostMapping("")
-    public List<Ingredient> postIngredients(@RequestBody List<Ingredient> ingredientsBody) {
-        List<Ingredient> list = new ArrayList<>();
-        for (Ingredient ingredient : ingredientsBody) {
-            Ingredient saved = ingredientRepository.save(ingredient);
-            list.add(saved);
-        }
-        return list;
-    }
 //    @PostMapping("")
 //    public List<Ingredient> postIngredients(@RequestBody List<Ingredient> ingredientsBody) {
 //        List<Ingredient> list = new ArrayList<>();
 //        for (Ingredient ingredient : ingredientsBody) {
-//            Ingredient ingredientToSave = new Ingredient();
-//            ingredientToSave.setName(ingredient.getName());
-//            ingredientToSave.setNameEn(ingredient.getNameEn());
-//            list.add(ingredientToSave);
-//            ingredientRepository.save(ingredient);
+//            Ingredient saved = ingredientRepository.save(ingredient);
+//            list.add(saved);
 //        }
 //        return list;
 //    }

@@ -7,6 +7,7 @@ import com.auth.test.repository.FlatRepository;
 import com.auth.test.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,7 +61,7 @@ public class FlatController {
 
 
     @PutMapping("/{id}")
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateFlat(@PathVariable Long id, @RequestBody Flat flatBody) {
         Flat flatToUpdate = flatRepository.findById(id).get();
         flatToUpdate.setImage(flatBody.getImage());
@@ -71,7 +72,7 @@ public class FlatController {
     }
 
     @DeleteMapping("/{id}")
-    // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteFlat(@PathVariable Long id) {
         Flat flatToDelete = flatRepository.findById(id).get();
         flatRepository.deleteById(flatToDelete.getId());

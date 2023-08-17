@@ -16,7 +16,7 @@ public class FlatSerializer extends JsonSerializer<List<Flat>> {
         List<Map<String, Object>> serializedFlats = new ArrayList<>();
         for (Flat flat : flats) {
             Map<String, Object> serializedFlat = new HashMap<>();
-            serializedFlat.put("name", flat.getTitre());
+            serializedFlat.put("titre", flat.getTitre());
 
             serializedFlats.add(serializedFlat);
         }
