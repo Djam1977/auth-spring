@@ -34,12 +34,13 @@ public class Comment {
     private String message;
 
     @NotNull
-    private Integer rating ;
+    private Integer rating;
 
 
-    private Boolean isVerifiedByAdmin;
+    private Boolean isVerifiedByAdmin = false;
 
-    public Comment() {}
+    public Comment() {
+    }
 
     public Comment(String firstname, String lastname, String email, String message, Integer rating) {
         this.firstname = firstname;
@@ -47,6 +48,7 @@ public class Comment {
         this.email = email;
         this.message = message;
         this.rating = rating;
+
     }
 
     public Long getId() {

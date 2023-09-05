@@ -1,11 +1,8 @@
 package com.auth.test.controller;
 
-import com.auth.test.entity.Flat;
 import com.auth.test.entity.Type;
-import com.auth.test.payload.response.MessageResponse;
 import com.auth.test.repository.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +22,7 @@ public class TypeController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Type> getFlatById(@PathVariable Long id) {
+    public Optional<Type> getDishById(@PathVariable Long id) {
         return typeRepository.findById(id);
     }
 

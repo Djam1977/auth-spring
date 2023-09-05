@@ -23,8 +23,8 @@ public class Ingredient {
     private String nameEn;
 
     @ManyToMany(mappedBy = "ingredients")
-    @JsonSerialize(using = FlatSerializer.class)
-    private List<Flat> flat = new ArrayList<>();
+    @JsonSerialize(using = DishSerializer.class)
+    private List<Dish> dishes = new ArrayList<>();
 
     public Ingredient() {
     }
@@ -53,12 +53,12 @@ public class Ingredient {
         this.name = name;
     }
 
-    public List<Flat> getFlat() {
-        return flat;
+    public List<Dish> getDishes() {
+        return dishes;
     }
 
-    public void setFlat(List<Flat> flat) {
-        this.flat = flat;
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = dishes;
     }
 
     public String getNameEn() {

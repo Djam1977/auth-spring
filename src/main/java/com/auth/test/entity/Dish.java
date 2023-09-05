@@ -7,8 +7,11 @@ import jakarta.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
-public class Flat {
+public class Dish {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,8 +29,8 @@ public class Flat {
 
     @ManyToMany
     @JsonSerialize(using = IngredientSerializer.class)
-    @JoinTable(name = "ingredient_flat",
-            joinColumns = @JoinColumn(name = "flat_id"),
+    @JoinTable(name = "ingredient_dish",
+            joinColumns = @JoinColumn(name = "dish_id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
     private List<Ingredient> ingredients = new ArrayList<>();
     @ManyToOne
@@ -35,10 +38,10 @@ public class Flat {
     private Type type;
 
 
-    public Flat() {
+    public Dish() {
     }
 
-    public Flat(Long id, String image, String titre, Float price) {
+    public Dish(Long id, String image, String titre, Float price) {
         this.id = id;
         this.image = image;
         this.titre = titre;
@@ -93,3 +96,7 @@ public class Flat {
         this.type = type;
     }
 }
+
+
+
+

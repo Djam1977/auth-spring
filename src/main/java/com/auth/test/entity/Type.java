@@ -15,7 +15,7 @@ public class Type {
     private Long id;
 
     @NotBlank
-    @Size(max = 255)
+    @Size(max = 10)
     private String name;
 
 

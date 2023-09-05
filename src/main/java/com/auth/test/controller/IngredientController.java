@@ -1,12 +1,11 @@
 package com.auth.test.controller;
 
 import com.auth.test.entity.Ingredient;
+import com.auth.test.payload.response.MessageResponse;
 import com.auth.test.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,13 +23,13 @@ public class IngredientController {
     }
 
 
-//    @PostMapping("")
-//    public List<Ingredient> postIngredients(@RequestBody List<Ingredient> ingredientsBody) {
-//        List<Ingredient> list = new ArrayList<>();
-//        for (Ingredient ingredient : ingredientsBody) {
-//            Ingredient saved = ingredientRepository.save(ingredient);
-//            list.add(saved);
-//        }
-//        return list;
-//    }
+    @PostMapping("")
+    public ResponseEntity<?> postIngredients(@RequestBody List<Ingredient> ingredientsBody) {
+
+        for (Ingredient ingredient : ingredientsBody) {
+            ingredientRepository.save(ingredient);
+        }
+
+        return ResponseEntity.ok(new MessageResponse("ok ingrédients ajoutés"));
+    }
 }
