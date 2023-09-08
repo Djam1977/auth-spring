@@ -75,8 +75,7 @@ public class DishController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteDish(@PathVariable Long id) {
-        Dish dishToDelete = dishRepository.findById(id).get();
-        dishRepository.deleteById(dishToDelete.getId());
+        dishRepository.deleteById(id);
         return ResponseEntity.ok(new MessageResponse("Plat bien supprimé!"));
     }
 }
