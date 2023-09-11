@@ -38,8 +38,6 @@ public class DishController {
 
     @PostMapping("")
     public ResponseEntity<?> postDish(@RequestBody Dish dishBody) {
-
-
         dishRepository.save(dishBody);
         return ResponseEntity.ok(new MessageResponse("Plat bien ajouté!"));
     }

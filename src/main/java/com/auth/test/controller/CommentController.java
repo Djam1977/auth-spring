@@ -49,8 +49,7 @@ public class CommentController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteComment(@PathVariable Long id) {
-        Comment commentToDelete = commentRepository.findById(id).get();
-        commentRepository.deleteById(commentToDelete.getId());
+        commentRepository.deleteById(id);
         return ResponseEntity.ok(new MessageResponse("Commentaire bien supprimé!"));
     }
 }
