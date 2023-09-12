@@ -42,22 +42,6 @@ public class DishController {
         return ResponseEntity.ok(new MessageResponse("Plat bien ajouté!"));
     }
 
-//    @PostMapping("")
-//    public ResponseEntity<?> postDishWithIngredient(@RequestBody DishWithIngredientWrapper wrapper) {
-//        Ingredient ingredient = ingredientRepository.findById(wrapper.getIngredient().getId()).orElse(null);
-//        Dish dish = dishRepository.findById(wrapper.getDish().getId()).orElse(null);
-//        if (ingredient != null && dish != null) {
-//
-//            dish.getIngredients().add(ingredient);
-//            ingredient.getDish().add(dish);
-//
-//            dishRepository.save(dish);
-//            ingredientRepository.save(ingredient);
-//
-//        }
-//        return ResponseEntity.ok(new MessageResponse("VIVE LA VIE"));
-//    }
-
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
