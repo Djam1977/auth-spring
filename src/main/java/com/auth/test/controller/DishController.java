@@ -37,6 +37,7 @@ public class DishController {
     }
 
     @PostMapping("")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> postDish(@RequestBody Dish dishBody) {
         dishRepository.save(dishBody);
         return ResponseEntity.ok(new MessageResponse("Plat bien ajouté!"));
