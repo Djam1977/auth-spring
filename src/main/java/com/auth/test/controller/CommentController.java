@@ -39,9 +39,9 @@ public class CommentController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> updateComment(@PathVariable Long id, @RequestBody Comment commentBody) {
+    public ResponseEntity<MessageResponse> updateComment(@PathVariable Long id, @RequestBody Comment commentBody) {
         Comment commentToUpdate = commentRepository.findById(id).get();
-        commentToUpdate.setVerifiedByAdmin(!commentBody.getVerifiedByAdmin());
+        commentToUpdate.setVerifiedByAdmin(true);
         commentRepository.save(commentToUpdate);
         return ResponseEntity.ok(new MessageResponse("Commentaire bien validé!"));
 
