@@ -39,22 +39,11 @@ DishController {
 
     @PostMapping("")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> postDish(@RequestBody Dish dishBody) {
+    public ResponseEntity<MessageResponse> postDish(@RequestBody Dish dishBody) {
         dishRepository.save(dishBody);
         return ResponseEntity.ok(new MessageResponse("Plat bien ajouté!"));
     }
 
-
-    @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> updateDish(@PathVariable Long id, @RequestBody Dish dishBody) {
-        Dish dishToUpdate = dishRepository.findById(id).get();
-        dishToUpdate.setImage(dishBody.getImage());
-        dishToUpdate.setTitre(dishBody.getTitre());
-        dishToUpdate.setPrice(dishBody.getPrice());
-        dishRepository.save(dishToUpdate);
-        return ResponseEntity.ok(new MessageResponse("Plat bien modifié!"));
-    }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")

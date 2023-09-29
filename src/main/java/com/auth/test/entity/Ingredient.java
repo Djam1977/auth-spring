@@ -28,13 +28,6 @@ public class Ingredient {
 
     public Ingredient() {
     }
-//
-//    public Ingredient(Long id, String name, String nameEn) {
-//        this.id = id;
-//        this.name = name;
-//        this.nameEn = nameEn;
-//
-//    }
 
 
     public Long getId() {
